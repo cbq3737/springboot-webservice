@@ -19,6 +19,7 @@ public class PostsApiController {
 
         return postsService.save(requestDto);
     }
+
     //put은 json안에 정보를 모두 교체, patch는 일부분만 교체
     //수정
     @PostMapping("/api/v1/posts/{id}")
