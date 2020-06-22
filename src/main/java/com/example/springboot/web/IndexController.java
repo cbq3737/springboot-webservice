@@ -26,11 +26,11 @@ public class IndexController {
     public String index(Model model, @LoginUser SessionUser user) {
         //SessionUser user = (SessionUser) httpSession.getAttribute("user");
 
+        model.addAttribute("posts", postsService.findAllDesc());
         if (user != null) {
             logger.info(user.getEmail());
             model.addAttribute("name",user.getName()); //키값을 userName으로 주면 이름이 안뜨고 user라는 값만 계속떠서 name으로 바꿔주니 오류 해결
         }
-        model.addAttribute("posts", postsService.findAllDesc());
 
         return "index";
     }

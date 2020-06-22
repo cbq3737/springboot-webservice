@@ -1,6 +1,5 @@
 package com.example.springboot.domain.posts;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +17,10 @@ public class PostsRepositoryTest {
     @Autowired
     PostsRepository postsRepository;
 
-    @After
-    public void cleanup() {
-        postsRepository.deleteAll();
-    }
+//    @After
+//    public void cleanup() {
+//        postsRepository.deleteAll();
+//    }
 
     @Test
     public void 게시글저장_불러오기() {

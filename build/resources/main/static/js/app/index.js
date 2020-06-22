@@ -13,7 +13,7 @@ init:function(){
     _this.delete();
     });
    },
-save:function(){
+    save:function(){
     var data= {
       title :$('#title').val(),
       author: $('#author').val(),

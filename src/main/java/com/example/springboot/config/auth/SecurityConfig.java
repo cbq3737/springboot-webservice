@@ -12,7 +12,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //소셜 로�
 
     private final CustomOAuth2UserService customOAuth2UserService;///RequiredArgsConstructor인한 생성자 생성
 
-    @Override
+    @Override//로그인 정책을 판단하는곳.
     protected void configure(HttpSecurity http) throws  Exception{
         http.csrf().disable()
                 .headers().frameOptions().disable()//h2-console을 사용하기 위한 option disable
@@ -29,5 +29,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter { //소셜 로�
                 .userInfoEndpoint()//로그인 성공ㅇ후 사용자 정보 가져올 때
                 .userService(customOAuth2UserService);//로그인 성공시 후속 할 일을 진행할 UserService의 인터페이스에 값을 주므로 후에 할 일을 적음.
     }
-
+//이메일로 판단, role 업데이트
 }

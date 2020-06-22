@@ -58,7 +58,7 @@ public class OAuthAttributes {
                 .name(name)
                 .email(email)
                 .picture(picture)
-                .role(Role.GUEST)
+                .role(Role.USER) //원랜 Guest 아님, console에서 일일이 update해서 바꿔줘야됌.
                 .build();
     }
 }
