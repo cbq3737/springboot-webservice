@@ -11,6 +11,7 @@ import javax.persistence.*;
 //필드값 변경 메소드를 만들때 인스턴스값을 주지않는다.
 @Getter
 @NoArgsConstructor
+
 @Entity//Posts.java이므로 posts table일듯, 이런식으로 매칭해준다.Entity는 DB에 이런 테이블이 있다고 알려주는 역할.
 public class Posts extends BaseTimeEntity {
 

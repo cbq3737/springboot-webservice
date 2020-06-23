@@ -9,7 +9,8 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User { //회원정보 Entity
+
+public class User { //회원정보 Entity,즉 세션을 위한 테이블
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
