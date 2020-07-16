@@ -1,7 +1,7 @@
 //build.gradle
 buildscript{
     ext{   //ext란 build.gradle에서 사용하는 전역변수를 설정해주겠다.
-        springBootVersion = '2.2.6.RELEASE' //springBootVersion전역변수를 선언한 후 2.2.6RELEASE로 하겠다라는 의미
+        springBootVersion = '2.1.7.RELEASE' //springBootVersion전역변수를 선언한 후 2.2.6RELEASE로 하겠다라는 의미
     }
     repositories {
         mavenCentral()
@@ -33,7 +33,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     compile('org.springframework.session:spring-session-jdbc')
-    compile('org.mariadb.jdbc:mariadb-java-client:2.0.2')
+    compile('org.mariadb.jdbc:mariadb-java-client')
+//    compile('org.mariadb.jdbc:mariadb-java-client:2.0.2')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
 }
