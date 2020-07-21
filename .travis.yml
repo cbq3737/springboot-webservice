@@ -11,6 +11,17 @@ branches:
 before_install:
   - chmod +x gradlew
 
+# Travis CI 서버의 HOME
+# 그레이들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다.
+cache:
+  directories:
+    - '$HOME/.m2/repository'
+    - '$HOME/.gradle'
+
+# master브랜치에 푸시 되었을 떄 수행하는 명령어다. 여기서 프로젝트 내부에 둔 gradlew을 통해 clean&build를 수행한다.
+script: "./gradlew clean build"
+
+
 #Travis CI에서 빌드하여 만든 Jar파일을 S3에 올릴 수 있도록 코드를 추가한다.addons:
 before_deploy:
   - zip -r freelec-springboot2-webservice *
@@ -27,16 +38,6 @@ deploy:
     acl: private
     local_dir: deploy
     wait-until-deployed: true
-
-# Travis CI 서버의 HOME
-# 그레이들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다.
-cache:
-  directories:
-    - '$HOME/.m2/repository'
-    - '$HOME/.gradle'
-
-# master브랜치에 푸시 되었을 떄 수행하는 명령어다. 여기서 프로젝트 내부에 둔 gradlew을 통해 clean&build를 수행한다.
-script: "./gradlew clean build"
 
 # CI 실행 완료시 메일로 알람
 notifications:
