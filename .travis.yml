@@ -32,7 +32,7 @@ before_deploy:
   - cp scripts/*.sh before-deploy/
   - cp appspec.yml before-deploy/
   - cp build/libs/*.jar before-deploy/
-  - cp before-deploy && zip -r before-deploy * #before-deploy로 이동 후 전체 압축
+  - cd before-deploy && zip -r before-deploy * #before-deploy로 이동 후 전체 압축
   - cd ../ && mkdir -p deploy
   - mv before-deploy/before-deploy.zip deploy/springboot-webservice.zip
 
