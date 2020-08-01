@@ -10,6 +10,7 @@ branches:
 #접근권한이 아닌 실행권한이 없어서 추가해주는 코드, 아님 gradlew에 실행권한을 추가하고 github에 올리는 방법도 있다.
 before_install:
   - chmod +x gradlew
+#  - chmod +x deploy
 
 # Travis CI 서버의 HOME
 # 그레이들을 통해 의존성을 받게 되면 이를 해당 디렉토리에 캐시하여, 같은 의존성은 다음 배포 때부터 다시 받지 않도록 설정한다.
@@ -28,13 +29,13 @@ before_deploy:
 #  - zip -r springboot-webservice * #현재 위치의 모든 파일을 springboot-webservice이름을 압축한다. 명령어 마지막은 내 프로젝트명
 #  - mkdir -p deploy #deploy라는 디렉토리를 Travis CI가 실행중인 위치에서 생성한다.
 #  - mv springboot-webservice.zip deploy/springboot-webservice.zip #zip파일을 deploy/로 이동한다.
-  - mkdir -p before-deploy #zip에 포함시킬 파일들을 담을 디렉토리 생성
-  - cp scripts/*.sh before-deploy/
+  - mkdir -p before-deploy #zip에 포함시킬 파일들을 담을 디렉토리 생성,Travis CI는 S3로 특정 파일만 업로드가 안된다. 디렉토리 단위로만 업로드할 수 있기 대문에 deploy 디렉토리로 항상 생성한다.
+  - cp scripts/*.sh before-deploy/ #before-deploy에는 zip 파일에 포함시킬 파일들을 저장한다.
   - cp appspec.yml before-deploy/
   - cp build/libs/*.jar before-deploy/
-  - cd before-deploy && zip -r before-deploy * #before-deploy로 이동 후 전체 압축
-  - cd ../ && mkdir -p deploy
-  - mv before-deploy/before-deploy.zip deploy/springboot-webservice.zip
+  - cd before-deploy && zip -r before-deploy * #before-deploy로 이동 후 전체 압축, zip -r 명령어를 통해 before-deploy 디렉토리 전체파일을 압축한다.
+  - cd ../ && mkdir -p deploy #before-deploy디렉토리에 다 복사햇으므로 이제 제대로 배포할 deploy디렉토리를 생성
+  - mv before-deploy/before-deploy.zip deploy/springboot-webservice.zip #before-deploy에 있던 모든 파일들을 deploy 디렉토리로 이동
 
 deploy: #S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비스와 연동될 행위들을 선언한다.
   - provider: s3
@@ -51,7 +52,7 @@ deploy: #S3로 파일 업로드 혹은 CodeDeploy로 배포 등 외부 서비스
     access_key_id: $AWS_ACCESS_KEY #Travis repo settiongs에 설정된 값
     secret_access_key: $AWS_SECRET_KEY #Travis repo settiongs에 설정된 값
     bucket: free-springboot-webservice-build #S3버켓
-    key: springboot-webservice.zip #빌드 파일을 압축해서 전달, 프로젝트 명
+    key: springboot-webservice.zip #빌드 파일을 압축해서 전달
     bundle_type: zip #압축 확장자
     application: freelec-springboot2-webservice #웹 콘솔에서 등록한 CodeDeploy애플리케이션
     deployment_group: freelec-springboot2-webservice-group #웹 콘솔에서 등록한 CodeDeploy 배포 그룹
