@@ -1,5 +1,6 @@
 package com.example.springboot.domain.user;
 
+import com.example.springboot.domain.BaseTimeEntity;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 
-public class User { //회원정보 Entity,즉 세션을 위한 테이블
+public class User extends BaseTimeEntity { //회원정보 Entity,즉 세션을 위한 테이블
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
